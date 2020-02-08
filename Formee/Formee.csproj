@@ -1,0 +1,132 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{F09DAE7B-440E-4962-8B90-A82AA6CB3CBF}</ProjectGuid>
+    <OutputType>WinExe</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Formee</RootNamespace>
+    <AssemblyName>Formee</AssemblyName>
+    <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <Deterministic>true</Deterministic>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup>
+    <StartupObject>Formee.Program</StartupObject>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Administracija.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Administracija.Designer.cs">
+      <DependentUpon>Administracija.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ExceptionServer.cs" />
+    <Compile Include="FormaRegistracija.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FormaRegistracija.Designer.cs">
+      <DependentUpon>FormaRegistracija.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FormPrijava.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FormPrijava.Designer.cs">
+      <DependentUpon>FormPrijava.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FrmLet.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FrmLet.Designer.cs">
+      <DependentUpon>FrmLet.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FrmPretragaLeta.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FrmPretragaLeta.Designer.cs">
+      <DependentUpon>FrmPretragaLeta.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Komunikacija.cs" />
+    <Compile Include="KontrolerKorisnickogInterfejsa.cs" />
+    <Compile Include="Program.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="FormRezervacija.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FormRezervacija.Designer.cs">
+      <DependentUpon>FormRezervacija.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Sesija.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Administracija.resx">
+      <DependentUpon>Administracija.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FormaRegistracija.resx">
+      <DependentUpon>FormaRegistracija.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FormPrijava.resx">
+      <DependentUpon>FormPrijava.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FormRezervacija.resx">
+      <DependentUpon>FormRezervacija.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FrmLet.resx">
+      <DependentUpon>FrmLet.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FrmPretragaLeta.resx">
+      <DependentUpon>FrmPretragaLeta.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\AvioKompanija\Domen.csproj">
+      <Project>{96bff2b0-70e9-4f30-835c-07725e61b9f3}</Project>
+      <Name>Domen</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Kontroler\Kontroler.csproj">
+      <Project>{592816F1-EBDF-4AE7-9CAE-B7513A9C36B2}</Project>
+      <Name>Kontroler</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+</Project>
