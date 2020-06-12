@@ -15,7 +15,6 @@ namespace Kontroler
     {
         private Broker broker = new Broker();
 
-
         private static Kontroler instance;
         private Kontroler() { }
 
@@ -25,7 +24,6 @@ namespace Kontroler
                 return instance;
             }
         }
-
         public object RegistrijKorisnika(IDomenskiObjekat objekat)
         {
             ZapamtiKorisnika zk = new ZapamtiKorisnika();
@@ -43,7 +41,6 @@ namespace Kontroler
             {
                 broker.ZatvoriKonekciju();
             }
-
         }
 
         public List<Avion> vratiAvione()
@@ -62,9 +59,7 @@ namespace Kontroler
             {
                 broker.ZatvoriKonekciju();
             }
-        }
-
-      
+        }      
 
         public bool SacuvajLet(Let l)
         {
@@ -102,7 +97,6 @@ namespace Kontroler
             {
                 broker.ZatvoriKonekciju();
             }
-
         }
 
         public Korisnik PrijaviKorisnika(Korisnik k)

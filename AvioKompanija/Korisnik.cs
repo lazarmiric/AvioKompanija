@@ -10,10 +10,8 @@ namespace Domen
 {
     [Serializable]
     public class Korisnik : IDomenskiObjekat
-    {
+    {   
     
-    
-
         public int SifraKorisnika { get; set; }
         public string Ime { get; set; }
         public string Prezime { get; set; }

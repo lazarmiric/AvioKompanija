@@ -5,8 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace AvioKompanija
-{
-   
+{  
     public enum Operacija
     {
         kraj = 1,

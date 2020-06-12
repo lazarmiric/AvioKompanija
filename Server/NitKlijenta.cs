@@ -17,9 +17,7 @@ namespace Server
     {
         private NetworkStream tok;
         private BinaryFormatter formatter;
-        public List<Thread> nitiKlijenata = new List<Thread>();
-
-      
+        public List<Thread> nitiKlijenata = new List<Thread>();     
 
         public NitKlijenta(NetworkStream tok)
         {

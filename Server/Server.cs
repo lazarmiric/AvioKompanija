@@ -48,7 +48,6 @@ namespace Server
             }
             catch (Exception)
             {
-
             }
         }
 

@@ -18,7 +18,6 @@ namespace Formee
             }
         }
         private Sesija() { }
-
         public Korisnik Korisnik { get; set; }
     }
 }

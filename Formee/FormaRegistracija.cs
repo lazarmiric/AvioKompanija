@@ -23,8 +23,7 @@ namespace Formee
         {
             InitializeComponent();
             kontroler.FrmClose += FrmClose;
-        }
-      
+        }     
 
         private void button1_Click(object sender, EventArgs e)
         {
@@ -36,8 +35,7 @@ namespace Formee
             catch (Exception ex)
             {
                 MessageBox.Show(ex.Message);
-            }
-           
+            }          
 
         }
         private void FrmClose()
