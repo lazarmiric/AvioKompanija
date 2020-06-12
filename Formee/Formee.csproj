@@ -77,6 +77,12 @@
     <Compile Include="FrmPretragaLeta.Designer.cs">
       <DependentUpon>FrmPretragaLeta.cs</DependentUpon>
     </Compile>
+    <Compile Include="KKIAdministracija.cs" />
+    <Compile Include="KKIFrmLet.cs" />
+    <Compile Include="KKIPretragaLeta.cs" />
+    <Compile Include="KKIPrijava.cs" />
+    <Compile Include="KKIRegistracija.cs" />
+    <Compile Include="KKIRezervacija.cs" />
     <Compile Include="Komunikacija.cs" />
     <Compile Include="KontrolerKorisnickogInterfejsa.cs" />
     <Compile Include="Program.cs" />

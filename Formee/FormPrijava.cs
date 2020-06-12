@@ -16,80 +16,43 @@ namespace Formee
 {
     public partial class FormPrijava : Form
     {
+        KKIPrijava kontroler = new KKIPrijava();
         public FormPrijava()
         {
             InitializeComponent();
+            kontroler.FrmClose += FrmClose;
         }
-
-        //Kontroler.Kontroler kontroler = new Kontroler.Kontroler();
+       
 
         private void linkLabel1_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
-            if (KontrolerKorisnickogInterfejsa.Instance.poveziSeNaServer())
+            try
             {
-                label3.Text = "Connected";
-                FormaRegistracija frmRegistracija = new FormaRegistracija();
-                frmRegistracija.ShowDialog();
+                kontroler.Registruj(label3);
             }
-            else { MessageBox.Show("Server nije pokrenut!");}
-
-
-
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
         }
 
         private void button1_Click(object sender, EventArgs e)
         {
             try
             {
-                Korisnik k = new Korisnik();
-                Administrator a = new Administrator();
-                a.KorisnickoIme = textBox1.Text;
-                a.Sifra = textBox2.Text;
-                k.KorisnickoIme = textBox1.Text;
-                k.Sifra = textBox2.Text;
-                if (KontrolerKorisnickogInterfejsa.Instance.poveziSeNaServer())
-                {
-                    label3.Text = "Connected";
-
-                    if (k.KorisnickoIme == "" || k.Sifra == "") { MessageBox.Show("Morate uneti i korisnicko ime i sifru!"); }
-                    else
-                    {
-                        if (KontrolerKorisnickogInterfejsa.Instance.ProveriAdmin(textBox1.Text, textBox2.Text))
-                        {
-                            MessageBox.Show("ADMINISTRATOR PRIJAVLJEN!");
-                            Administracija frmAdmin = new Administracija();
-                            frmAdmin.ShowDialog();
-                            Close();
-
-
-                        }
-                        else
-                        {
-                            Korisnik kor = new Korisnik();
-                            kor = KontrolerKorisnickogInterfejsa.Instance.PrijaviKorisnika(k);
-                            if (kor != null)
-                            {
-                                Sesija.Instance.Korisnik = kor;
-                                MessageBox.Show("Prijavljen korisnik!");
-                                FormRezervacija frmRezervacija = new FormRezervacija();
-                                frmRezervacija.ShowDialog();
-                                Close();
-
-                            }
-                            else MessageBox.Show("Ne postoji korisnik sa tim korisnickim imenom i lozinkom!");
-                        }
-                    }
-                }
-                else { MessageBox.Show("Server nije povezan!");}
+                kontroler.Prijavi(textBox1, textBox2,label3);
             }
-            catch (ExceptionServer es)
+            catch (Exception ex)
             {
-                MessageBox.Show("Server je iskljucen!");
-                Environment.Exit(0);
-
+                MessageBox.Show(ex.Message);
             }
+           
+        }
+        private void FrmClose()
+        {
+            this.Close();
         }
 
-      
+
     }
 }
