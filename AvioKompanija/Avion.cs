@@ -14,7 +14,7 @@ namespace AvioKompanija
         public String NazivAviona { get; set; }
 
         public string Table => "Avion";
-
+         
         public string FullTable => "Avion a";
 
         public string InsertValues => "";
