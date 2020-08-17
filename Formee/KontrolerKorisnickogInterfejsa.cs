@@ -76,6 +76,11 @@ namespace Formee
             return k.VratiAvione();
         }
 
+        internal List<Aerodrom> VratiAerodrome()
+        {
+            return k.VratiAerodrome();
+        }
+
         internal List<Sediste> VratiSedista(Avion avion)
         {
             return k.VratiSedista(avion.SifraAviona);

@@ -43,6 +43,24 @@ namespace Kontroler
             }
         }
 
+        public List<Aerodrom> vratiAerodrome()
+        {
+            try
+            {
+                broker.OtvoriKonekciju();
+                return broker.vratiListu(new Aerodrom()).OfType<Aerodrom>().ToList();
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+            finally
+            {
+                broker.ZatvoriKonekciju();
+            }
+        }
+
         public List<Avion> vratiAvione()
         {
             try

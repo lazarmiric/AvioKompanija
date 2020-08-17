@@ -42,8 +42,8 @@ namespace Formee
             comboBox3.DataSource = KontrolerKorisnickogInterfejsa.Instance.VratiAvione();
             textBox1.Text = let.DatumPolaska.ToString("dd.MM.yyyy hh:mm");
             label1.Text = Convert.ToString(let.SifraLet);
-            textBox2.Text = let.DestinacijaOD.Naziv;
-            textBox3.Text = let.DestinacijaDO.Naziv;
+            textBox2.Text = let.DestinacijaOD.Grad;
+            textBox3.Text = let.DestinacijaDO.Grad;
         }
     }
 }

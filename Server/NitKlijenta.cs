@@ -102,7 +102,11 @@ namespace Server
                             transfer.TransferObjekat = filterLet;
                             formatter.Serialize(tok, transfer);
                             break;
-                       
+                        case Operacija.VratiAerodrome:
+                            transfer.TransferObjekat = Kontroler.Kontroler.Instance.vratiAerodrome();
+                            formatter.Serialize(tok, transfer);
+                            break;
+
                     }
                 }
             }

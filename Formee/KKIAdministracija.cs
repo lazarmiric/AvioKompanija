@@ -17,9 +17,9 @@ namespace Formee
             {
 
                 Let l = new Let();
-                l.DestinacijaOD = cmbOD.SelectedItem as Destinacija;
-                l.DestinacijaDO = cmbDo.SelectedItem as Destinacija;
-                if (l.DestinacijaDO.Naziv != l.DestinacijaOD.Naziv)
+                l.DestinacijaOD = cmbOD.SelectedItem as Aerodrom;
+                l.DestinacijaDO = cmbDo.SelectedItem as Aerodrom;
+                if (l.DestinacijaDO.Grad != l.DestinacijaOD.Grad)
                 {
                     l.Avion = cmbAvion.SelectedItem as Avion;
                     l.DatumPolaska = DateTime.ParseExact(txtDatum.Text, "dd.MM.yyyy HH:mm", CultureInfo.InvariantCulture);

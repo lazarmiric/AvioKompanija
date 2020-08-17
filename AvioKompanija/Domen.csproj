@@ -42,6 +42,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Administrator.cs" />
+    <Compile Include="Aerodrom.cs" />
     <Compile Include="Avion.cs" />
     <Compile Include="Destinacija.cs" />
     <Compile Include="IDomenskiObjekat.cs" />

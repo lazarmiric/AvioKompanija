@@ -31,5 +31,25 @@ namespace Formee
             }
 
         }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            string s = txtOd.Text;
+            txtOd.Text = txtDo.Text;
+            txtDo.Text = s;
+        }
+
+        private void btnOdaberi_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                kontroler.Odaberi(dataGridView1);
+                this.Close();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+        }
     }
 }

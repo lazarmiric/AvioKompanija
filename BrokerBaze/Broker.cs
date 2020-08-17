@@ -82,10 +82,7 @@ namespace BrokerBaze
             command.CommandText = $"{objekat.Get} {objekat.FullTable} {objekat.Join}";
             SqlDataReader reader = command.ExecuteReader();
             return objekat.GetReaderResult(reader);
-
-
-
-        }
+                                         }
 
         public List<IDomenskiObjekat> vratiBez(IDomenskiObjekat objekat)
         {

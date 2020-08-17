@@ -199,6 +199,24 @@ namespace Formee
             }
         }
 
+        internal List<Aerodrom> VratiAerodrome()
+        {
+            try
+            {
+                TransferKlasa transfer = new TransferKlasa();
+                transfer.Operacija = Operacija.VratiAerodrome;
+                formatter.Serialize(tok, transfer);
+                transfer = ProcitajOdgovor();
+                return (List<Aerodrom>)transfer.TransferObjekat;
+            }
+            catch (IOException e)
+            {
+
+                klijent.Close();
+                throw new ExceptionServer("Server je zaustavljen!");
+            }
+        }
+
         internal bool ProveriAdmin(string user, string pass)
         {
             try

@@ -43,9 +43,9 @@ namespace AvioKompanija
         [Browsable(false)]
         public string UpdateValues => "set Odobreno = 'false'";
         [Browsable(false)]
-        public string Join => "join Let l on(r.SifraLet = l.SifraLet) join Destinacija d on (d.SifraDestinacije = l.SifraDestinacijeDO) join Destinacija de on(de.SifraDestinacije = l.SifraDestinacijeOD) join Korisnici k on(k.SifraKorisnika = r.SifraKorisnika) join Avion a on(a.SifraAviona = r.SifraAviona)";
+        public string Join => "join Let l on(r.SifraLet = l.SifraLet) join Aerodrom aer on (aer.AerodromID = l.SifraDestinacijeDO) join Aerodrom aero on(aero.AerodromID = l.SifraDestinacijeOD) join Korisnici k on(k.SifraKorisnika = r.SifraKorisnika) join Avion a on(a.SifraAviona = r.SifraAviona) join Destinacija dst on (dst.SifraDestinacije = aer.ZemljaID) join Destinacija ds on(ds.SifraDestinacije = aero.ZemljaID)";
         [Browsable(false)]
-        public string SearchId => $"where de.Naziv like '%{Filter}%'";
+        public string SearchId => $"where dst.Naziv like '%{Filter}%'";
         [Browsable(false)]
         public object ColumnId => $"where RedBr = {RedBr}";
         [Browsable(false)]
@@ -65,21 +65,30 @@ namespace AvioKompanija
                 r.Odobreno = reader.GetBoolean(2);
                 Korisnik k = new Korisnik();
                 k.SifraKorisnika = reader.GetInt32(3);
-                k.Ime = reader.GetString(18);
-                k.Prezime = reader.GetString(19);
+                k.Ime = reader.GetString(20);
+                k.Prezime = reader.GetString(21);
                 r.Korisnik = k;
                 Administrator a = new Administrator();
                 a.SifraAdmin = reader.GetInt32(4);
                 r.Administrator = a;
                 Let l = new Let();
                 l.SifraLet = reader.GetInt32(7);
+                l.DatumPolaska = reader.GetDateTime(9);
                 r.Let = l;
-                Destinacija od = new Destinacija();
-                Destinacija dod = new Destinacija();
-                od.DestinacijaID = reader.GetInt32(15);
-                od.Naziv = reader.GetString(16);
-                dod.DestinacijaID = reader.GetInt32(13);
-                dod.Naziv = reader.GetString(14);
+                Aerodrom od = new Aerodrom();
+                Aerodrom dod = new Aerodrom();
+                od.AerodromID = reader.GetInt32(16);
+                od.Grad = reader.GetString(17);
+                Destinacija dstod = new Destinacija();
+                dstod.DestinacijaID = reader.GetInt32(30);
+                dstod.Naziv = reader.GetString(31);
+                Destinacija dstdo = new Destinacija();
+                dstdo.DestinacijaID = reader.GetInt32(28);
+                dstdo.Naziv = reader.GetString(29);
+                od.Zemlja = dstod;
+                dod.Zemlja = dstdo;
+                dod.AerodromID = reader.GetInt32(13);
+                dod.Grad = reader.GetString(14);
                 l.DestinacijaDO = dod;
                 l.DestinacijaOD = od;
                 Sediste s = new Sediste();

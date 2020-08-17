@@ -23,7 +23,8 @@ namespace AvioKompanija
         IzmeniLet,
         PronadjiRezervaciju,
         PronadjiLet,
-        ZauzmiSedista
+        ZauzmiSedista,
+        VratiAerodrome
     }
     [Serializable]
     public class TransferKlasa

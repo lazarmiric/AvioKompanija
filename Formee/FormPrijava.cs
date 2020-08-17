@@ -53,6 +53,11 @@ namespace Formee
             this.Close();
         }
 
+       
 
+        private void FormPrijava_Load(object sender, EventArgs e)
+        {
+            this.AcceptButton = button1;
+        }
     }
 }

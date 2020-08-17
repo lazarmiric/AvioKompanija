@@ -122,10 +122,11 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(228, 221);
+            this.ClientSize = new System.Drawing.Size(227, 217);
             this.Controls.Add(this.panel1);
             this.Name = "FormPrijava";
             this.Text = "Prijava";
+            this.Load += new System.EventHandler(this.FormPrijava_Load);
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
             this.ResumeLayout(false);

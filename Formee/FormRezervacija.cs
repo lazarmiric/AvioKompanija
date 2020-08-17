@@ -13,6 +13,7 @@ namespace Formee
 {
     public partial class FormRezervacija : Form
     {
+        
         KKIRezervacija kontroler = new KKIRezervacija();
         public FormRezervacija()
         {
@@ -25,17 +26,23 @@ namespace Formee
             {
                 lbDatumOdl.Visible = false;
                 label5.Visible = false;
+                lblSedistePov.Visible = false;
+                lblSedistePovratak.Visible = false;
 
             }
             else
             {
                 label5.Visible = true;
                 lbDatumOdl.Visible = true;
+                lblSedistePov.Visible = true;
+                lblSedistePovratak.Visible = true;
             }
         }
         List<Destinacija> destinacije = new List<Destinacija>();
         List<Let> letovi = new List<Let>();
         List<Avion> avioni = new List<Avion>();
+        List<Aerodrom> aero = new List<Aerodrom>();
+        List<Rezervacija> sveRezerv = new List<Rezervacija>();
         //List<Sediste> sedista = new List<Sediste>();
 
         private void Rezervacija_Load(object sender, EventArgs e)
@@ -43,9 +50,11 @@ namespace Formee
             destinacije = KontrolerKorisnickogInterfejsa.Instance.VratiDestinacije();
             letovi = KontrolerKorisnickogInterfejsa.Instance.VratiLetove();
             avioni = KontrolerKorisnickogInterfejsa.Instance.VratiAvione();
+            aero = KontrolerKorisnickogInterfejsa.Instance.VratiAerodrome();
+            sveRezerv = KontrolerKorisnickogInterfejsa.Instance.UcitajRezervacije();
             try
             {
-                kontroler.OtvoriRezervacije(letovi, label5,lbDatumOdl, cmbDestinacijeOd);
+                kontroler.OtvoriRezervacije(letovi, label5, lbDatumOdl, cmbDestinacijeOd, lblSedistePovratak,lblSedistePov); ;
             }
             catch (Exception ex)
             {
@@ -56,8 +65,8 @@ namespace Formee
         private void cmbDestinacijeOd_SelectedIndexChanged(object sender, EventArgs e)
         {
             try
-            {
-                kontroler.PromenaDestinacijeOd(letovi, cmbDestinacijeOd, cmbDestinacijeDo, lbDatumPolaska, lbDatumOdl, cmbAvion);
+            {                
+                kontroler.PromenaDestinacijeOd(letovi, cmbDestinacijeOd, cmbDestinacijeDo, lbDatumPolaska, lbDatumOdl, cmbAvion,sveRezerv,lblSedistePocetak,lblSedistePov);
             }
             catch (Exception ex)
             {
@@ -69,7 +78,8 @@ namespace Formee
         {
             try
             {
-                kontroler.PromenaDestinacije(letovi, cmbDestinacijeOd, cmbDestinacijeDo, lbDatumPolaska, lbDatumOdl, cmbAvion);
+
+                kontroler.PromenaDestinacije(letovi, cmbDestinacijeOd, cmbDestinacijeDo, lbDatumPolaska, lbDatumOdl, cmbAvion, lblSedistePov,lblSedistePocetak) ;
             }
             catch (Exception ex)
             {
@@ -94,24 +104,24 @@ namespace Formee
             try
             {
                 kontroler.Rezervisi(cmbDestinacijeOd, cmbDestinacijeDo, lbDatumPolaska, lbDatumOdl, cmbAvion,
-                    cmbSediste, checkBox1, dataGridView1, rezervacije, avioni, letovi);
+                    checkBox1, dataGridView1, rezervacije, avioni, letovi,lblSedistePocetak,lblSedistePov) ;
             }
             catch (Exception ex)
             {
                 MessageBox.Show(ex.Message);
             }
         }       
-        private void cmbAvion_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            try
-            {
-                kontroler.PromenaAviona(cmbSediste, cmbAvion);
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message);
-            }
-        }
+        //private void cmbAvion_SelectedIndexChanged(object sender, EventArgs e)
+        //{
+        //    try
+        //    {
+        //        kontroler.PromenaAviona(cmbSediste, cmbAvion);
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        MessageBox.Show(ex.Message);
+        //    }
+        //}
         private void button1_Click(object sender, EventArgs e)
         {
             try
@@ -128,6 +138,39 @@ namespace Formee
         {
             FrmPretragaLeta pl = new FrmPretragaLeta();
             pl.ShowDialog();
+          
+            try
+            {
+                if(LetSesija.Instance.OdabraniLet != null)
+                kontroler.Sredi(cmbDestinacijeOd, cmbDestinacijeDo, cmbAvion, lbDatumPolaska);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
         }
+
+        private void btnOdaberiSediste_Click(object sender, EventArgs e)
+        {
+            FormSedista frmSedista = new FormSedista(checkBox1, cmbDestinacijeOd, cmbDestinacijeDo, lbDatumPolaska, lbDatumOdl, cmbAvion);
+            frmSedista.ShowDialog();
+            lblSedistePocetak.Text = Convert.ToString(SedisteSesija.Instance.Sediste);
+            if (lblSedistePocetak.Text == "0") lblSedistePocetak.Text = "-";
+            lblSedistePov.Text = Convert.ToString(SedisteSesija.Instance.SedistePovratak);
+            if (lblSedistePov.Text == "0") lblSedistePov.Text = "-";
+        }
+
+        private void lbDatumPolaska_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            lblSedistePov.Text = "-";
+            lblSedistePocetak.Text = "-";
+        }
+
+        private void lbDatumOdl_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            lblSedistePov.Text = "-";
+            lblSedistePocetak.Text = "-";
+        }
+      
     }
 }
