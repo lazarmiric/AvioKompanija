@@ -21,7 +21,8 @@ namespace Formee
                 a.KorisnickoIme = textBox1.Text;
                 a.Sifra = textBox2.Text;
                 k.KorisnickoIme = textBox1.Text;
-                k.Sifra = textBox2.Text;
+                //  k.Sifra = textBox2.Text;
+                k.Sifra = Enkripcija.Instance.encrypt(textBox2.Text);
                 if (KontrolerKorisnickogInterfejsa.Instance.poveziSeNaServer())
                 {
                     label3.Text = "Connected";

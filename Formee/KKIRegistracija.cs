@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
+using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -12,19 +13,19 @@ namespace Formee
     public class KKIRegistracija
     {
         public event Action FrmClose;
-        public void Ocisti(TextBox txtDat, TextBox txtID, TextBox txJmbg, TextBox txtIme,
+        public void Ocisti(TextBox txJmbg, TextBox txtIme,
             TextBox txtKorisnickoIme, TextBox txtPass, TextBox txtPRez)
-        {
-            txtDat.Clear();
-            txtID.Clear();
+        {                     
             txJmbg.Clear();
             txtIme.Clear();
             txtKorisnickoIme.Clear();
             txtPass.Clear();
             txtPRez.Clear();
         }
-        public void Registruj(TextBox txtDat,TextBox txtID,TextBox txJmbg, TextBox txtIme, 
-            TextBox txtKorisnickoIme, TextBox txtPass, TextBox txtPRez)
+       
+
+        public void Registruj(TextBox txJmbg, TextBox txtIme, 
+            TextBox txtKorisnickoIme, TextBox txtPass, TextBox txtPRez, DateTimePicker dateTimePicker1)
         {
             try
             {
@@ -32,9 +33,9 @@ namespace Formee
                 korisnik.Ime = txtIme.Text;
                 korisnik.Prezime = txtPRez.Text;
                 korisnik.Jmbg = txJmbg.Text;
-                korisnik.DatumRodjenja = DateTime.ParseExact(txtDat.Text, "dd.MM.yyyy", CultureInfo.InvariantCulture);
+                korisnik.DatumRodjenja = DateTime.ParseExact(dateTimePicker1.Text, "dd.MM.yyyy", CultureInfo.InvariantCulture);
                 korisnik.KorisnickoIme = txtKorisnickoIme.Text;
-                korisnik.Sifra = txtPass.Text;
+                korisnik.Sifra = Enkripcija.Instance.encrypt(txtPass.Text);
 
 
                 if (txtIme.Text != "" && txtPRez.Text != "" && txJmbg.Text != "" && txJmbg.Text != "" && txtKorisnickoIme.Text != "" &&
@@ -46,7 +47,7 @@ namespace Formee
                     if (registrovan == true)
                     {
                         MessageBox.Show($"Korisnik {korisnik.KorisnickoIme} je uspesno registrovan!");
-                        Ocisti(txtDat, txtID, txJmbg, txtIme, txtKorisnickoIme, txtPass, txtPRez);
+                        Ocisti( txJmbg, txtIme, txtKorisnickoIme, txtPass, txtPRez);
                         FrmClose();
                     }
 

@@ -38,7 +38,7 @@ namespace Formee
 
             try
             {
-                kontroler.DodajLet(txtDatum,cmbOD,cmbDo,cmbAvion,dataGridView2);
+                kontroler.DodajLet(cmbOD,cmbDo,cmbAvion,dataGridView2,dateTimePicker1);
             }
             catch (Exception ex)
             {
@@ -95,6 +95,20 @@ namespace Formee
             {
                 MessageBox.Show(ex.Message);
             }
+        }
+
+        private void btnZameni_Click(object sender, EventArgs e)
+        {
+            int pom = cmbDo.SelectedIndex;
+            cmbDo.SelectedIndex = cmbOD.SelectedIndex;
+            cmbOD.SelectedIndex = pom;
+        }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            string pom = txtOd.Text;
+            txtOd.Text = txtDo.Text;
+            txtDo.Text = pom;
         }
     }
 }

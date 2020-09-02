@@ -34,12 +34,14 @@ namespace Formee
 
             }
         }
+       
 
         internal void Odaberi(DataGridView dataGridView1)
         {
             if (dataGridView1.SelectedRows.Count > 0)
             {        
-                LetSesija.Instance.OdabraniLet = (Let)dataGridView1.CurrentRow.DataBoundItem;               
+                LetSesija.Instance.OdabraniLet = (Let)dataGridView1.CurrentRow.DataBoundItem;
+                
             }
             else MessageBox.Show("Rezervacija nije oznacena!");
         }

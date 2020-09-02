@@ -29,260 +29,145 @@ namespace Formee
             datumPolaska = lbDatumPolaska;
             datumOdlaska = lbDatumOdl;
             avion = cmbAvion;
-            
+            int ukupnoSedista = (avion.SelectedItem as Avion).BrojSedista;
+            tableLayoutPanel1.ColumnCount = ukupnoSedista / 4;
+            tableLayoutPanel1.RowCount = 4;
+            for (int i = 0; i < ukupnoSedista / 4; i++)
+            {
+                tableLayoutPanel1.ColumnStyles.Add(new ColumnStyle(SizeType.AutoSize));
+                for (int j = 0; j < 4; j++)
+                {
+                    if (i == 0)
+                    {
+                        tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.AutoSize));
+                    }
+                    Button b = new Button();
+                    b.Name = "b" + (j * ukupnoSedista / 4 + i + 1);
+                    b.Size = new System.Drawing.Size(37, 25);
+                    b.TabIndex = 45;
+                    //  b.Text = (j).ToString() + "," + (i).ToString();
+                    b.Text = (j * ukupnoSedista / 4 + i + 1).ToString();
+                    b.UseVisualStyleBackColor = true;
+                    b.Click += B_Click;
+                    b.BackColor = Color.Green;
+                    this.tableLayoutPanel1.Controls.Add(b, i, j);
+                }
+            }
+            sveRez = KontrolerKorisnickogInterfejsa.Instance.UcitajRezervacije();
+            int brPovratak = 0;
+            if (cbx.Checked)
+            {
+                foreach (Rezervacija r in sveRez)
+                {
+
+                    if (r.Let.DestinacijaOD.Grad == ((doDest.SelectedItem) as Aerodrom).Grad
+                        && r.Let.DestinacijaDO.Grad == ((odDest.SelectedItem) as Aerodrom).Grad
+                        && r.Let.DatumPolaska == Convert.ToDateTime(datumOdlaska.SelectedItem))
+                    {
+
+
+                        brPovratak = r.Avion.BrojSedista;
+
+                    }
+                }
+            }
+
+            tableLayoutPanel2.ColumnCount = brPovratak / 4;
+            tableLayoutPanel2.RowCount = 4;
+            for (int i = 0; i < brPovratak / 4; i++)
+            {
+                tableLayoutPanel2.ColumnStyles.Add(new ColumnStyle(SizeType.AutoSize));
+                for (int j = 0; j < 4; j++)
+                {
+                    if (i == 0)
+                    {
+                        tableLayoutPanel2.RowStyles.Add(new RowStyle(SizeType.AutoSize));
+                    }
+                    Button but = new Button();
+                    but.Name = "but" + (j * ukupnoSedista / 4 + i + 1);
+                    but.Size = new System.Drawing.Size(37, 25);
+                    but.TabIndex = 45;
+                    //  b.Text = (j).ToString() + "," + (i).ToString();
+                    but.Text = (j * brPovratak / 4 + i + 1).ToString();
+                    but.UseVisualStyleBackColor = true;
+                    but.Click += B1_Click;
+                    but.BackColor = Color.Green;
+                    this.tableLayoutPanel2.Controls.Add(but, i, j);
+                }
+            }
+
+
+         
+
+
+                        foreach (Rezervacija r in sveRez){
+                foreach (Control c in this.tableLayoutPanel1.Controls)
+                {
+                    if (r.Let.DestinacijaOD.Grad == ((odDest.SelectedItem) as Aerodrom).Grad
+                    && r.Let.DestinacijaDO.Grad == ((doDest.SelectedItem) as Aerodrom).Grad
+                    && r.Let.DatumPolaska == Convert.ToDateTime(datumPolaska.SelectedItem))
+                    {
+                        if (r.Sediste.BrojSedista == Convert.ToInt32(c.Text))
+                        {
+                            c.BackColor = Color.Red;
+                            c.Enabled = false;
+                        }
+                    }
+                }
+            }
+            if (cbx.Checked)
+            {
+                foreach (Rezervacija r in sveRez)
+                {
+                    foreach (Control c in this.tableLayoutPanel2.Controls)
+                    {
+                        if (r.Let.DestinacijaOD.Grad == ((doDest.SelectedItem) as Aerodrom).Grad
+                        && r.Let.DestinacijaDO.Grad == ((odDest.SelectedItem) as Aerodrom).Grad
+                        && r.Let.DatumPolaska == Convert.ToDateTime(datumOdlaska.SelectedItem))
+                        {
+                            if (r.Sediste.BrojSedista == Convert.ToInt32(c.Text))
+                            {
+                                c.BackColor = Color.Red;
+                                c.Enabled = false;
+                            }
+
+                        }
+                    }
+                }
+            }
+
+
+        }
+
+        private void B1_Click(object sender, EventArgs e)
+        {
+            Button b = (Button)sender;
+            lblSedistePov.Text = b.Text;
+        }
+
+        private void B_Click(object sender, EventArgs e)
+        {
+            Button b = (Button)sender;
+            lblSediste.Text = b.Text;
         }
 
         private void FormSedista_Load(object sender, EventArgs e)
         {
             sveRez = KontrolerKorisnickogInterfejsa.Instance.UcitajRezervacije();
-
-            b1.BackColor = Color.Green;
-            b2.BackColor = Color.Green;
-            b3.BackColor = Color.Green;
-            b4.BackColor = Color.Green;
-            b5.BackColor = Color.Green;
-            b6.BackColor = Color.Green;
-            b7.BackColor = Color.Green;
-            b8.BackColor = Color.Green;
-            b9.BackColor = Color.Green;
-            b10.BackColor = Color.Green;
-            b11.BackColor = Color.Green;
-            b12.BackColor = Color.Green;
-            b13.BackColor = Color.Green;
-            b14.BackColor = Color.Green;
-            b15.BackColor = Color.Green;
-            b16.BackColor = Color.Green;
-            b17.BackColor = Color.Green;
-            b18.BackColor = Color.Green;
-            b19.BackColor = Color.Green;
-            b20.BackColor = Color.Green;
-            b21.BackColor = Color.Green;
-            b22.BackColor = Color.Green;
-            b23.BackColor = Color.Green;
-            b24.BackColor = Color.Green;
-
-
-            bp1.BackColor = Color.Green;
-            bp2.BackColor = Color.Green;
-            bp3.BackColor = Color.Green;
-            bp4.BackColor = Color.Green;
-            bp5.BackColor = Color.Green;
-            bp6.BackColor = Color.Green;
-            bp7.BackColor = Color.Green;
-            bp8.BackColor = Color.Green;
-            bp9.BackColor = Color.Green;
-            bp10.BackColor = Color.Green;
-            bp11.BackColor = Color.Green;
-            bp12.BackColor = Color.Green;
-            bp13.BackColor = Color.Green;
-            bp14.BackColor = Color.Green;
-            bp15.BackColor = Color.Green;
-            bp16.BackColor = Color.Green;
-            bp17.BackColor = Color.Green;
-            bp18.BackColor = Color.Green;
-            bp19.BackColor = Color.Green;
-            bp20.BackColor = Color.Green;
-            bp21.BackColor = Color.Green;
-            bp22.BackColor = Color.Green;
-            bp23.BackColor = Color.Green;
-            bp24.BackColor = Color.Green;
-
-
+                      
             if (!cbx.Checked)
             {
-                panelPovratna.Visible = false;
+                
                 lblSedistePov.Visible = false;
                 lblPovratno.Visible = false;
+                tableLayoutPanel2.Visible = false;
             }
-            foreach (Rezervacija r in sveRez)
-            {
-                if (cbx.Checked)
-                {
-                    if (r.Let.DestinacijaOD.Grad == ((doDest.SelectedItem) as Aerodrom).Grad
-                        && r.Let.DestinacijaDO.Grad == ((odDest.SelectedItem) as Aerodrom).Grad
-                        && r.Let.DatumPolaska == Convert.ToDateTime(datumOdlaska.SelectedItem))
-                    {
-                        if (r.Sediste.BrojSedista == Convert.ToInt32(bp1.Text)) { bp1.Enabled = false; bp1.BackColor = Color.Red; }
-                        if (r.Sediste.BrojSedista == Convert.ToInt32(bp2.Text)) { bp2.Enabled = false; bp2.BackColor = Color.Red; }
-                        if (r.Sediste.BrojSedista == Convert.ToInt32(bp3.Text)) { bp3.Enabled = false; bp3.BackColor = Color.Red; }
-                        if (r.Sediste.BrojSedista == Convert.ToInt32(bp4.Text)) { bp4.Enabled = false; bp4.BackColor = Color.Red; }
-                        if (r.Sediste.BrojSedista == Convert.ToInt32(bp5.Text)) { b5.Enabled = false; bp5.BackColor = Color.Red; }
-                        if (r.Sediste.BrojSedista == Convert.ToInt32(bp6.Text)) { bp6.Enabled = false; bp6.BackColor = Color.Red; }
-                        if (r.Sediste.BrojSedista == Convert.ToInt32(bp7.Text)) { bp7.Enabled = false; bp7.BackColor = Color.Red; }
-                        if (r.Sediste.BrojSedista == Convert.ToInt32(bp8.Text)) { bp8.Enabled = false; bp8.BackColor = Color.Red; }
-                        if (r.Sediste.BrojSedista == Convert.ToInt32(bp9.Text)) { bp9.Enabled = false; bp9.BackColor = Color.Red; }
-                        if (r.Sediste.BrojSedista == Convert.ToInt32(bp10.Text)) { bp10.Enabled = false; bp10.BackColor = Color.Red; }
-                        if (r.Sediste.BrojSedista == Convert.ToInt32(bp11.Text)) { bp11.Enabled = false; bp11.BackColor = Color.Red; }
-                        if (r.Sediste.BrojSedista == Convert.ToInt32(bp12.Text)) { bp12.Enabled = false; bp12.BackColor = Color.Red; }
-                        if (r.Sediste.BrojSedista == Convert.ToInt32(bp13.Text)) { bp13.Enabled = false; bp13.BackColor = Color.Red; }
-                        if (r.Sediste.BrojSedista == Convert.ToInt32(bp14.Text)) { bp14.Enabled = false; bp14.BackColor = Color.Red; }
-                        if (r.Sediste.BrojSedista == Convert.ToInt32(bp15.Text)) { bp15.Enabled = false; bp15.BackColor = Color.Red; }
-                        if (r.Sediste.BrojSedista == Convert.ToInt32(bp16.Text)) { bp16.Enabled = false; bp16.BackColor = Color.Red; }
-                        if (r.Sediste.BrojSedista == Convert.ToInt32(bp17.Text)) { bp17.Enabled = false; bp17.BackColor = Color.Red; }
-                        if (r.Sediste.BrojSedista == Convert.ToInt32(bp18.Text)) { bp18.Enabled = false; bp18.BackColor = Color.Red; }
-                        if (r.Sediste.BrojSedista == Convert.ToInt32(bp19.Text)) { bp19.Enabled = false; bp19.BackColor = Color.Red; }
-                        if (r.Sediste.BrojSedista == Convert.ToInt32(bp20.Text)) { bp20.Enabled = false; bp20.BackColor = Color.Red; }
-                        if (r.Sediste.BrojSedista == Convert.ToInt32(bp21.Text)) { bp21.Enabled = false; bp21.BackColor = Color.Red; }
-                        if (r.Sediste.BrojSedista == Convert.ToInt32(bp22.Text)) { bp22.Enabled = false; bp22.BackColor = Color.Red; }
-                        if (r.Sediste.BrojSedista == Convert.ToInt32(bp23.Text)) { bp23.Enabled = false; bp23.BackColor = Color.Red; }
-                        if (r.Sediste.BrojSedista == Convert.ToInt32(bp24.Text)) { bp24.Enabled = false; bp24.BackColor = Color.Red; }
-                    }
-                }
-
-
-                if (r.Let.DestinacijaOD.Grad == ((odDest.SelectedItem) as Aerodrom).Grad
-                    && r.Let.DestinacijaDO.Grad == ((doDest.SelectedItem) as Aerodrom).Grad
-                    && r.Let.DatumPolaska == Convert.ToDateTime(datumPolaska.SelectedItem))
-                {
-                    if (r.Sediste.BrojSedista == Convert.ToInt32(b1.Text)) { b1.Enabled = false; b1.BackColor = Color.Red; }
-                    if (r.Sediste.BrojSedista == Convert.ToInt32(b2.Text)) { b2.Enabled = false; b2.BackColor = Color.Red; }
-                    if (r.Sediste.BrojSedista == Convert.ToInt32(b3.Text)) { b3.Enabled = false; b3.BackColor = Color.Red; }
-                    if (r.Sediste.BrojSedista == Convert.ToInt32(b4.Text)) { b4.Enabled = false; b4.BackColor = Color.Red; }
-                    if (r.Sediste.BrojSedista == Convert.ToInt32(b5.Text)) { b5.Enabled = false; b5.BackColor = Color.Red; }
-                    if (r.Sediste.BrojSedista == Convert.ToInt32(b6.Text)) { b6.Enabled = false; b6.BackColor = Color.Red; }
-                    if (r.Sediste.BrojSedista == Convert.ToInt32(b7.Text)) { b7.Enabled = false; b7.BackColor = Color.Red; }
-                    if (r.Sediste.BrojSedista == Convert.ToInt32(b8.Text)) { b8.Enabled = false; b8.BackColor = Color.Red; }
-                    if (r.Sediste.BrojSedista == Convert.ToInt32(b9.Text)) { b9.Enabled = false; b9.BackColor = Color.Red; }
-                    if (r.Sediste.BrojSedista == Convert.ToInt32(b10.Text)) { b10.Enabled = false; b10.BackColor = Color.Red; }
-                    if (r.Sediste.BrojSedista == Convert.ToInt32(b11.Text)) { b11.Enabled = false; b11.BackColor = Color.Red; }
-                    if (r.Sediste.BrojSedista == Convert.ToInt32(b12.Text)) { b12.Enabled = false; b12.BackColor = Color.Red; }
-                    if (r.Sediste.BrojSedista == Convert.ToInt32(b13.Text)) { b13.Enabled = false; b13.BackColor = Color.Red; }
-                    if (r.Sediste.BrojSedista == Convert.ToInt32(b14.Text)) { b14.Enabled = false; b14.BackColor = Color.Red; }
-                    if (r.Sediste.BrojSedista == Convert.ToInt32(b15.Text)) { b15.Enabled = false; b15.BackColor = Color.Red; }
-                    if (r.Sediste.BrojSedista == Convert.ToInt32(b16.Text)) { b16.Enabled = false; b16.BackColor = Color.Red; }
-                    if (r.Sediste.BrojSedista == Convert.ToInt32(b17.Text)) { b17.Enabled = false; b17.BackColor = Color.Red; }
-                    if (r.Sediste.BrojSedista == Convert.ToInt32(b18.Text)) { b18.Enabled = false; b18.BackColor = Color.Red; }
-                    if (r.Sediste.BrojSedista == Convert.ToInt32(b19.Text)) { b19.Enabled = false; b19.BackColor = Color.Red; }
-                    if (r.Sediste.BrojSedista == Convert.ToInt32(b20.Text)) { b20.Enabled = false; b20.BackColor = Color.Red; }
-                    if (r.Sediste.BrojSedista == Convert.ToInt32(b21.Text)) { b21.Enabled = false; b21.BackColor = Color.Red; }
-                    if (r.Sediste.BrojSedista == Convert.ToInt32(b22.Text)) { b22.Enabled = false; b22.BackColor = Color.Red; }
-                    if (r.Sediste.BrojSedista == Convert.ToInt32(b23.Text)) { b23.Enabled = false; b23.BackColor = Color.Red; }
-                    if (r.Sediste.BrojSedista == Convert.ToInt32(b24.Text)) { b24.Enabled = false; b24.BackColor = Color.Red; }
-                }
-
-            }
+           
         }
 
-        private void b1_Click(object sender, EventArgs e)
-        {
-            lblSediste.Text = "1";
-        }
+        
 
-        private void b2_Click(object sender, EventArgs e)
-        {
-            lblSediste.Text = "2";
-        }
-
-        private void b3_Click(object sender, EventArgs e)
-        {
-            lblSediste.Text = "3";
-        }
-
-        private void b4_Click(object sender, EventArgs e)
-        {
-            lblSediste.Text = "4";
-        }
-
-        private void b5_Click(object sender, EventArgs e)
-        {
-            lblSediste.Text = "5";
-        }
-
-        private void b6_Click(object sender, EventArgs e)
-        {
-            lblSediste.Text = "6";
-        }
-
-        private void b7_Click(object sender, EventArgs e)
-        {
-            lblSediste.Text = "7";
-        }
-
-        private void b8_Click(object sender, EventArgs e)
-        {
-            lblSediste.Text = "8";
-        }
-
-        private void b9_Click(object sender, EventArgs e)
-        {
-            lblSediste.Text = "9";
-        }
-
-        private void b10_Click(object sender, EventArgs e)
-        {
-            lblSediste.Text = "10";
-        }
-
-        private void b11_Click(object sender, EventArgs e)
-        {
-            lblSediste.Text = "11";
-        }
-
-        private void b12_Click(object sender, EventArgs e)
-        {
-            lblSediste.Text = "12";
-        }
-
-        private void b13_Click(object sender, EventArgs e)
-        {
-            lblSediste.Text = "13";
-        }
-
-        private void b14_Click(object sender, EventArgs e)
-        {
-            lblSediste.Text = "14";
-        }
-
-        private void b15_Click(object sender, EventArgs e)
-        {
-            lblSediste.Text = "15";
-        }
-
-        private void b16_Click(object sender, EventArgs e)
-        {
-            lblSediste.Text = "16";
-        }
-
-        private void b17_Click(object sender, EventArgs e)
-        {
-            lblSediste.Text = "17";
-        }
-
-        private void b18_Click(object sender, EventArgs e)
-        {
-            lblSediste.Text = "18";
-        }
-
-        private void b19_Click(object sender, EventArgs e)
-        {
-            lblSediste.Text = "19";
-        }
-
-        private void b20_Click(object sender, EventArgs e)
-        {
-            lblSediste.Text = "20";
-        }
-
-        private void b21_Click(object sender, EventArgs e)
-        {
-            lblSediste.Text = "21";
-        }
-
-        private void b22_Click(object sender, EventArgs e)
-        {
-            lblSediste.Text = "22";
-        }
-
-        private void b23_Click(object sender, EventArgs e)
-        {
-            lblSediste.Text = "23";
-        }
-
-        private void b24_Click(object sender, EventArgs e)
-        {
-            lblSediste.Text = "24";
-        }
-
+        
         private void button1_Click(object sender, EventArgs e)
         {
             try
@@ -298,124 +183,124 @@ namespace Formee
             }
         }
 
-        private void bp1_Click(object sender, EventArgs e)
+        private void b9_Click(object sender, EventArgs e)
         {
-            lblSedistePov.Text = "1";
+
         }
 
-        private void bp2_Click(object sender, EventArgs e)
+        private void b2_Click(object sender, EventArgs e)
         {
-            lblSedistePov.Text = "2";
+
         }
 
-        private void bp3_Click(object sender, EventArgs e)
+        private void b8_Click(object sender, EventArgs e)
         {
-            lblSedistePov.Text = "3";
+
         }
 
-        private void bp4_Click(object sender, EventArgs e)
+        private void b3_Click(object sender, EventArgs e)
         {
-            lblSedistePov.Text = "4";
+
         }
 
-        private void bp5_Click(object sender, EventArgs e)
+        private void b7_Click(object sender, EventArgs e)
         {
-            lblSedistePov.Text = "5";
+
         }
 
-        private void bp6_Click(object sender, EventArgs e)
+        private void b4_Click(object sender, EventArgs e)
         {
-            lblSedistePov.Text = "6";
+
         }
 
-        private void bp7_Click(object sender, EventArgs e)
+        private void b5_Click(object sender, EventArgs e)
         {
-            lblSedistePov.Text = "7";
+
         }
 
-        private void bp8_Click(object sender, EventArgs e)
+        private void b6_Click(object sender, EventArgs e)
         {
-            lblSedistePov.Text = "8";
+
         }
 
-        private void bp9_Click(object sender, EventArgs e)
+        private void b10_Click(object sender, EventArgs e)
         {
-            lblSedistePov.Text = "9";
+
         }
 
-        private void bp10_Click(object sender, EventArgs e)
+        private void b1_Click(object sender, EventArgs e)
         {
-            lblSedistePov.Text = "10";
+
         }
 
-        private void bp11_Click(object sender, EventArgs e)
+        private void b11_Click(object sender, EventArgs e)
         {
-            lblSedistePov.Text = "11";
+
         }
 
-        private void bp12_Click(object sender, EventArgs e)
+        private void b12_Click(object sender, EventArgs e)
         {
-            lblSedistePov.Text = "12";
+
         }
 
-        private void bp13_Click(object sender, EventArgs e)
+        private void b21_Click(object sender, EventArgs e)
         {
-            lblSedistePov.Text = "13";
+
         }
 
-        private void bp14_Click(object sender, EventArgs e)
+        private void b14_Click(object sender, EventArgs e)
         {
-            lblSedistePov.Text = "14";
+
         }
 
-        private void bp15_Click(object sender, EventArgs e)
+        private void b20_Click(object sender, EventArgs e)
         {
-            lblSedistePov.Text = "15";
+
         }
 
-        private void bp16_Click(object sender, EventArgs e)
+        private void b15_Click(object sender, EventArgs e)
         {
-            lblSedistePov.Text = "16";
+
         }
 
-        private void bp17_Click(object sender, EventArgs e)
+        private void b19_Click(object sender, EventArgs e)
         {
-            lblSedistePov.Text = "17";
+
         }
 
-        private void bp18_Click(object sender, EventArgs e)
+        private void b16_Click(object sender, EventArgs e)
         {
-            lblSedistePov.Text = "18";
+
         }
 
-        private void bp19_Click(object sender, EventArgs e)
+        private void b17_Click(object sender, EventArgs e)
         {
-            lblSedistePov.Text = "19";
+
         }
 
-        private void bp20_Click(object sender, EventArgs e)
+        private void b18_Click(object sender, EventArgs e)
         {
-            lblSedistePov.Text = "20";
+
         }
 
-        private void bp21_Click(object sender, EventArgs e)
+        private void b22_Click(object sender, EventArgs e)
         {
-            lblSedistePov.Text = "21";
+
         }
 
-        private void bp22_Click(object sender, EventArgs e)
+        private void b13_Click(object sender, EventArgs e)
         {
-            lblSedistePov.Text = "22";
+
         }
 
-        private void bp23_Click(object sender, EventArgs e)
+        private void b23_Click(object sender, EventArgs e)
         {
-            lblSedistePov.Text = "23";
+
         }
 
-        private void bp24_Click(object sender, EventArgs e)
+        private void b24_Click(object sender, EventArgs e)
         {
-            lblSedistePov.Text = "24";
+
         }
     }
 }

@@ -13,6 +13,8 @@ namespace AvioKompanija
         public int SifraAviona { get; set; }
         public String NazivAviona { get; set; }
 
+        public int BrojSedista { get; set; }
+
         public string Table => "Avion";
          
         public string FullTable => "Avion a";
@@ -36,7 +38,7 @@ namespace AvioKompanija
             List<IDomenskiObjekat> lista = new List<IDomenskiObjekat>();
             while (reader.Read())
             {
-                Avion a = new Avion {SifraAviona = reader.GetInt32(0) , NazivAviona = reader.GetString(1) };                
+                Avion a = new Avion {SifraAviona = reader.GetInt32(0) , NazivAviona = reader.GetString(1) , BrojSedista = reader.GetInt32(2)};                
                 lista.Add(a);
             }
 

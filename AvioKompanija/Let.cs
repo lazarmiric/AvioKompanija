@@ -37,7 +37,7 @@ namespace AvioKompanija
         [Browsable(false)]
         public object ColumnId => "";
         [Browsable(false)]
-        public object Get => "Select SifraLet,DatumPolaska,SifraDestinacijeOD,SifraDestinacijeDO,l.SifraAviona,ae.Grad,ae.ZemljaID,d.Naziv,d.SifraDestinacije,aer.Grad,aer.ZemljaID,ds.Naziv,ds.SifraDestinacije,NazivAviona from";
+        public object Get => "Select SifraLet,DatumPolaska,SifraDestinacijeOD,SifraDestinacijeDO,l.SifraAviona,ae.Grad,ae.ZemljaID,d.Naziv,d.SifraDestinacije,aer.Grad,aer.ZemljaID,ds.Naziv,ds.SifraDestinacije,NazivAviona,BrojSedista from";
         [Browsable(false)]
         public string Kriterijum { get; set; }
         [Browsable(false)]
@@ -52,7 +52,7 @@ namespace AvioKompanija
                     DatumPolaska = reader.GetDateTime(1),
                     DestinacijaOD = new Aerodrom { AerodromID = reader.GetInt32(2), Grad = reader.GetString(5),Zemlja = new Destinacija { DestinacijaID = reader.GetInt32(6),Naziv = reader.GetString(7)}  },
                     DestinacijaDO = new Aerodrom { AerodromID = reader.GetInt32(3), Grad = reader.GetString(9),Zemlja = new Destinacija { DestinacijaID = reader.GetInt32(10),Naziv = reader.GetString(11)} },
-                    Avion = new Avion { SifraAviona = reader.GetInt32(4), NazivAviona = reader.GetString(13) }
+                    Avion = new Avion { SifraAviona = reader.GetInt32(4), NazivAviona = reader.GetString(13) , BrojSedista = reader.GetInt32(14)}
 
                 });
             }
@@ -86,7 +86,7 @@ namespace AvioKompanija
         [Browsable(false)]
         public string Uslov()
         {
-            return $"SifraAviona = {Avion.SifraAviona}";
+            return $"SifraAviona = {Avion.SifraAviona} , DatumPolaska = '{DatumPolaska}'";
         }
         [Browsable(false)]
         public string UslovLog(string s1, string s2)

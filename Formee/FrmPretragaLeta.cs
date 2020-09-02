@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.ComponentModel;
 using System.Data;
 using System.Drawing;
 using System.Linq;
@@ -44,6 +45,7 @@ namespace Formee
             try
             {
                 kontroler.Odaberi(dataGridView1);
+                if(LetSesija.Instance.OdabraniLet != null)
                 this.Close();
             }
             catch (Exception ex)

@@ -1,6 +1,7 @@
 ﻿using AvioKompanija;
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -20,6 +21,7 @@ namespace Formee
                 Avion a = new Avion();
                 a = comboBox3.SelectedItem as Avion;
                 novi.Avion = a;
+                novi.DatumPolaska = DateTime.ParseExact(textBox1.Text, "dd.MM.yyyy HH:mm", CultureInfo.InvariantCulture);
                 bool uspeh = KontrolerKorisnickogInterfejsa.Instance.IzmeniLet(novi);
                 if (uspeh) MessageBox.Show("Izmene uspesno sacuvane!");
                 else MessageBox.Show("Sistem ne moze da sacuva izmene!");

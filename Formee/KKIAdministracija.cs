@@ -1,6 +1,7 @@
 ﻿using AvioKompanija;
 using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Globalization;
 using System.Linq;
 using System.Text;
@@ -11,7 +12,7 @@ namespace Formee
 {
     public class KKIAdministracija
     {
-        public void DodajLet(TextBox txtDatum, ComboBox cmbOD, ComboBox cmbDo,ComboBox cmbAvion,DataGridView dataGridView2)
+        public void DodajLet(ComboBox cmbOD, ComboBox cmbDo,ComboBox cmbAvion,DataGridView dataGridView2,DateTimePicker dateTimePicker1)
         {
             try
             {
@@ -19,10 +20,11 @@ namespace Formee
                 Let l = new Let();
                 l.DestinacijaOD = cmbOD.SelectedItem as Aerodrom;
                 l.DestinacijaDO = cmbDo.SelectedItem as Aerodrom;
-                if (l.DestinacijaDO.Grad != l.DestinacijaOD.Grad)
+                if (l.DestinacijaDO.Grad != l.DestinacijaOD.Grad && l.DestinacijaDO.Zemlja.Naziv != l.DestinacijaOD.Zemlja.Naziv)
                 {
                     l.Avion = cmbAvion.SelectedItem as Avion;
-                    l.DatumPolaska = DateTime.ParseExact(txtDatum.Text, "dd.MM.yyyy HH:mm", CultureInfo.InvariantCulture);
+                    l.DatumPolaska = DateTime.ParseExact(dateTimePicker1.Text, "dd.MM.yyyy HH:mm", CultureInfo.InvariantCulture);
+                   
                     bool uspesno = KontrolerKorisnickogInterfejsa.Instance.ZapamtiLet(l);
                     if (uspesno) MessageBox.Show("Sistem je zapamtio novi let!");
                     else MessageBox.Show("Sistem ne moze zapamti novi let!");
@@ -34,7 +36,7 @@ namespace Formee
             catch (FormatException)
             {
 
-                MessageBox.Show("Nepravilan unos!"); ;
+                MessageBox.Show("Nepravilan unos!"); 
             }
             catch (ExceptionServer es)
             {
@@ -70,6 +72,12 @@ namespace Formee
                 if (filter.Count > 0)
                     MessageBox.Show("Sistem je pronasao rezervacije!");
                 if (filter.Count == 0) MessageBox.Show("Sistem ne moze da nadje rezervacije na osnovu kriterijuma!");
+                foreach (DataGridViewRow row in dataGridView1.Rows)
+                    if (Convert.ToBoolean(row.Cells[1].Value) == false)
+                    {
+                        row.DefaultCellStyle.BackColor = Color.PaleVioletRed;
+                    }
+                    else row.DefaultCellStyle.BackColor = Color.LightGreen;
             }
             catch (ExceptionServer es)
             {
@@ -101,6 +109,13 @@ namespace Formee
                     else { MessageBox.Show("Rezervacija je vec otkazana!"); }
                 }
                 else MessageBox.Show("Rezervacija nije oznacena!");
+
+                foreach (DataGridViewRow row in dataGridView1.Rows)
+                    if (Convert.ToBoolean(row.Cells[1].Value) == false)
+                    {
+                        row.DefaultCellStyle.BackColor = Color.PaleVioletRed;
+                    }
+                    else row.DefaultCellStyle.BackColor = Color.LightGreen;
             }
             catch (ExceptionServer es)
             {
@@ -135,11 +150,19 @@ namespace Formee
         }
         public void OtvoriAdmin(DataGridView dataGridView1, ComboBox cmbOD, ComboBox cmbDo, ComboBox cmbAvion, List<Rezervacija> rez)
         {
-            cmbDo.DataSource = KontrolerKorisnickogInterfejsa.Instance.VratiDestinacije();
-            cmbOD.DataSource = KontrolerKorisnickogInterfejsa.Instance.VratiDestinacije();
+            cmbDo.DataSource = KontrolerKorisnickogInterfejsa.Instance.VratiAerodrome();
+            cmbOD.DataSource = KontrolerKorisnickogInterfejsa.Instance.VratiAerodrome();
             cmbAvion.DataSource = KontrolerKorisnickogInterfejsa.Instance.VratiAvione();
             rez = KontrolerKorisnickogInterfejsa.Instance.UcitajRezervacije();
             dataGridView1.DataSource = rez;
+            foreach (DataGridViewRow row in dataGridView1.Rows)
+                if (Convert.ToBoolean(row.Cells[1].Value) == false)
+                {
+                    row.DefaultCellStyle.BackColor = Color.PaleVioletRed;
+                }
+                else row.DefaultCellStyle.BackColor = Color.LightGreen;
+
+
         }
     }
 }

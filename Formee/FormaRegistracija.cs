@@ -30,7 +30,7 @@ namespace Formee
 
             try
             {
-                kontroler.Registruj(txtDat, txtID, txJmbg, txtIme, txtKorisnickoIme, txtPass, txtPRez);
+                kontroler.Registruj(txJmbg, txtIme, txtKorisnickoIme, txtPass, txtPRez,dateTimePicker1);
             }
             catch (Exception ex)
             {

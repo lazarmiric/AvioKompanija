@@ -45,7 +45,7 @@ namespace AvioKompanija
         [Browsable(false)]
         public string Join => "join Let l on(r.SifraLet = l.SifraLet) join Aerodrom aer on (aer.AerodromID = l.SifraDestinacijeDO) join Aerodrom aero on(aero.AerodromID = l.SifraDestinacijeOD) join Korisnici k on(k.SifraKorisnika = r.SifraKorisnika) join Avion a on(a.SifraAviona = r.SifraAviona) join Destinacija dst on (dst.SifraDestinacije = aer.ZemljaID) join Destinacija ds on(ds.SifraDestinacije = aero.ZemljaID)";
         [Browsable(false)]
-        public string SearchId => $"where dst.Naziv like '%{Filter}%'";
+        public string SearchId => $"where ds.Naziv like '%{Filter}%' or aero.Grad like '%{Filter}%'";
         [Browsable(false)]
         public object ColumnId => $"where RedBr = {RedBr}";
         [Browsable(false)]
@@ -80,11 +80,11 @@ namespace AvioKompanija
                 od.AerodromID = reader.GetInt32(16);
                 od.Grad = reader.GetString(17);
                 Destinacija dstod = new Destinacija();
-                dstod.DestinacijaID = reader.GetInt32(30);
-                dstod.Naziv = reader.GetString(31);
+                dstod.DestinacijaID = reader.GetInt32(31);
+                dstod.Naziv = reader.GetString(32);
                 Destinacija dstdo = new Destinacija();
-                dstdo.DestinacijaID = reader.GetInt32(28);
-                dstdo.Naziv = reader.GetString(29);
+                dstdo.DestinacijaID = reader.GetInt32(29);
+                dstdo.Naziv = reader.GetString(30);
                 od.Zemlja = dstod;
                 dod.Zemlja = dstdo;
                 dod.AerodromID = reader.GetInt32(13);
@@ -94,7 +94,8 @@ namespace AvioKompanija
                 Sediste s = new Sediste();
                 Avion av = new Avion();
                 av.SifraAviona = reader.GetInt32(5);
-                av.NazivAviona = reader.GetString(25);
+                av.NazivAviona = reader.GetString(27);
+                av.BrojSedista = reader.GetInt32(28);
                 r.Avion = av;
                 s.BrojSedista = reader.GetInt32(6);
                 r.Sediste = s;

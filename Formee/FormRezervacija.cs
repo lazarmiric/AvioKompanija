@@ -8,6 +8,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using iTextSharp.text;
+using iTextSharp.text.pdf;
+using System.IO;
 
 namespace Formee
 {
@@ -43,7 +46,7 @@ namespace Formee
         List<Avion> avioni = new List<Avion>();
         List<Aerodrom> aero = new List<Aerodrom>();
         List<Rezervacija> sveRezerv = new List<Rezervacija>();
-        //List<Sediste> sedista = new List<Sediste>();
+
 
         private void Rezervacija_Load(object sender, EventArgs e)
         {
@@ -91,7 +94,10 @@ namespace Formee
         {
             try
             {
-                kontroler.SacuvajRezervaciju(rezervacije);
+                kontroler.SacuvajRezervaciju(rezervacije,pdfRez);
+                lblSedistePocetak.Text = "-";
+                lblSedistePov.Text = "-";
+
             }
             catch (Exception ex)
             {
@@ -99,6 +105,8 @@ namespace Formee
             }
         }
         BindingList<Rezervacija> rezervacije = new BindingList<Rezervacija>();
+        List<Rezervacija> pdfRez = new List<Rezervacija>();
+        
         private void btnRezervisi_Click(object sender, EventArgs e)
         {
             try
@@ -111,17 +119,7 @@ namespace Formee
                 MessageBox.Show(ex.Message);
             }
         }       
-        //private void cmbAvion_SelectedIndexChanged(object sender, EventArgs e)
-        //{
-        //    try
-        //    {
-        //        kontroler.PromenaAviona(cmbSediste, cmbAvion);
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        MessageBox.Show(ex.Message);
-        //    }
-        //}
+      
         private void button1_Click(object sender, EventArgs e)
         {
             try
